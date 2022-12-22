@@ -7,9 +7,9 @@ const calculateWealthBtn = document.getElementById("calculate-wealth");
 
 let data = [];
 
-getRandomUser()
-getRandomUser()
-getRandomUser()
+getRandomUser();
+getRandomUser();
+getRandomUser();
 
 //random user and money
 
@@ -34,4 +34,32 @@ async function getRandomUser() {
 
 function addData(obj){
     data.push(obj);
+
+    updateDOM();
 }
+
+function updateDOM(provideData = data){
+    // limpa main div
+
+    main.innerHTML = '<h2><strong>Person</strong>Wealth</h2>';
+
+    provideData.forEach(item => {
+        const element = document.createElement('div');
+        element.classList.add('person');
+        element.innerHTML = `<strong>${item.name}</strong> ${formatMoney(item.money)}`;
+
+        main.appendChild(element);
+    });
+
+}
+
+// Format number as money - https://stackoverflow.com/questions/149055/how-to-format-numbers-as-currency-string
+
+function formatMoney(number) {
+  return '$ ' + number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+}
+
+//Event Listeners 
+
+addUserBtn.addEventListener('click', getRandomUser);
+
