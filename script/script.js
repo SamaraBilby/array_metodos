@@ -2,7 +2,7 @@ const main = document.getElementById("main");
 const addUserBtn = document.getElementById("add-user");
 const doubleBtn = document.getElementById("double");
 const showMillionairesBtn = document.getElementById("show-millionaires");
-const shortBtn = document.getElementById("sort");
+const sortBtn = document.getElementById("sort");
 const calculateWealthBtn = document.getElementById("calculate-wealth");
 
 let data = [];
@@ -29,6 +29,40 @@ async function getRandomUser() {
    };
    addData(newUser);
 }
+
+
+//dobrando o valor do dinheiro de todos as person
+
+function doubleMoney(){
+    data = data.map(user => {
+        return {
+          ...user, 
+          money: user.money * 2
+        };
+    });
+
+    updateDOM();
+};
+//Ordenar usuários pelos mais ricos
+
+  function sortByRichest(){
+    data.sort((a,b)=> b.money - a.money)
+
+    updateDOM();
+  }
+
+  //filtrar somente os milionários
+
+  function showMillionaires(){
+    data = data.filter(user => user.money > 1000000);
+
+    updateDOM();
+  }
+
+
+  // calc total de riquieza
+
+  
 
 // add um novo obj nos dados de array
 
@@ -62,4 +96,6 @@ function formatMoney(number) {
 //Event Listeners 
 
 addUserBtn.addEventListener('click', getRandomUser);
-
+doubleBtn.addEventListener('click', doubleMoney);
+sortBtn.addEventListener('click', sortByRichest);
+showMillionairesBtn.addEventListener('click', showMillionaires);
